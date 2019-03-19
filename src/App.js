@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './App.css'
 
-const Todo = ({ todo, index, completeTodo }) => {
+const Todo = ({ todo, index, completeTodo, removeTodo }) => {
     return (
         <div
             style={{ textDecoration: todo.isCompleted ? 'line-through' : '' }}
@@ -15,6 +15,13 @@ const Todo = ({ todo, index, completeTodo }) => {
                     }}
                 >
                     Complete
+                </button>
+                <button
+                    onClick={() => {
+                        removeTodo(index)
+                    }}
+                >
+                    Remove
                 </button>
             </div>
         </div>
@@ -73,6 +80,12 @@ const App = () => {
         setTodos(newTodos)
     }
 
+    const removeTodo = index => {
+        const newTodos = [...todos]
+        newTodos.splice(index, 1)
+        setTodos(newTodos)
+    }
+
     return (
         <div className="app">
             <div className="todo-list">
@@ -83,6 +96,7 @@ const App = () => {
                             index={index}
                             todo={todo}
                             completeTodo={completeTodo}
+                            removeTodo={removeTodo}
                         />
                     )
                 })}
